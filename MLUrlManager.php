@@ -54,6 +54,13 @@ class MLUrlManager extends CUrlManager
      */
     public function parseUrl($request) {
         $this->_currentUrl = parent::parseUrl($request);
+        foreach ($this->languages as $v) {
+            if (substr($this->_currentUrl, 0, strlen($v) + 1) == $v.'/') {
+                $this->_currentUrl = substr($this->_currentUrl, strlen($v) + 1);
+                $_GET['language'] = $v;
+                break;
+            }
+        }
         if (isset($_GET['language'])&&in_array($_GET['language'],$this->languages)) {
             Yii::app()->language = $_GET['language'];
             Yii::app()->user->setState('language',$_GET['language']);
