@@ -56,7 +56,7 @@ class MLUrlManager extends CUrlManager
         $this->_currentUrl = parent::parseUrl($request);
         foreach ($this->languages as $v) {
             if (substr($this->_currentUrl, 0, strlen($v) + 1) == $v.'/') {
-                $this->_currentUrl = substr($this->_currentUrl, strlen($v));
+                $this->_currentUrl = substr($this->_currentUrl, strlen($v) + 1);
                 $_GET['language'] = $v;
                 break;
             }
