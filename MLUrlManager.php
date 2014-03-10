@@ -42,7 +42,12 @@ class MLUrlManager extends CUrlManager
      */
     public function createUrl($route,$params=array(),$ampersand='&') {
         if (!isset($params['language'])) {
-            $params['language'] = Yii::app()->language;
+            if ($this->getUrlFormat()===self::PATH_FORMAT) {
+                return '/'.Yii::app()->language.parent::createUrl($route,$params,$ampersand);
+            }
+            else {
+                $params['language'] = Yii::app()->language;
+            }
         }
         return parent::createUrl($route,$params,$ampersand);
     }
